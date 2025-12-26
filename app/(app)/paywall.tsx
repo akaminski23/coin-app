@@ -20,8 +20,8 @@ const FEATURES: { icon: IoniconsName; text: string }[] = [
 ];
 
 const LEGAL_URLS = {
-  privacy: 'https://akaminski23.github.io/coin-app/legal/privacy.html',
-  terms: 'https://akaminski23.github.io/coin-app/legal/terms.html',
+  privacy: 'https://akaminski23.github.io/coin-app/privacy.html',
+  terms: 'https://akaminski23.github.io/coin-app/terms.html',
 };
 
 export default function PaywallScreen() {
