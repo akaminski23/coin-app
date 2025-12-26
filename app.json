@@ -3,6 +3,7 @@
     "name": "Coin",
     "slug": "coin-app",
     "version": "1.0.0",
+    "description": "Make decisions with a flip of a coin",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "dark",
