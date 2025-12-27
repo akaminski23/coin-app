@@ -7,7 +7,7 @@ import Purchases, {
 } from 'react-native-purchases';
 
 // RevenueCat API Keys
-const REVENUECAT_API_KEY_IOS = 'test_PmvBoEGcYa0JrGiVzxCdXjdBVyc';
+const REVENUECAT_API_KEY_IOS = 'appl_TneTLFAufxmDGTKVIp0pYrYUNNS';
 const REVENUECAT_API_KEY_ANDROID = 'YOUR_REVENUECAT_ANDROID_API_KEY'; // TODO: Add when needed
 
 // Product identifiers (must match App Store Connect)
