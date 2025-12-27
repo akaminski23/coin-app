@@ -1,9 +1,7 @@
-import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Alert, Linking } from 'react-native';
 import { useRouter } from 'expo-router';
-import { LinearGradient } from 'expo-linear-gradient';
 import { Ionicons } from '@expo/vector-icons';
 import { Card } from '@/components/ui';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useSubscriptionStore } from '@/stores/useSubscriptionStore';
 import { useHistoryStore } from '@/stores/useHistoryStore';
 import { useTheme } from '@/hooks/useTheme';
@@ -16,17 +14,15 @@ function MenuItem({
   label,
   onPress,
   accent,
-  destructive,
 }: {
   icon: IoniconsName;
   label: string;
   onPress: () => void;
   accent?: boolean;
-  destructive?: boolean;
 }) {
   const { theme } = useTheme();
 
-  const iconColor = destructive ? theme.error : accent ? theme.gold : theme.textSecondary;
+  const iconColor = accent ? theme.gold : theme.textSecondary;
 
   return (
     <TouchableOpacity
@@ -39,7 +35,6 @@ function MenuItem({
           styles.menuLabel,
           { color: theme.text },
           accent && { color: theme.gold, fontWeight: '600' },
-          destructive && { color: theme.error },
         ]}
       >
         {label}
@@ -52,51 +47,21 @@ function MenuItem({
 export default function ProfileScreen() {
   const router = useRouter();
   const { theme } = useTheme();
-  const { user, logout } = useAuthStore();
   const { isPro } = useSubscriptionStore();
   const { totalFlips, headsCount, tailsCount } = useHistoryStore();
 
-  const handleLogout = () => {
-    Alert.alert('Log Out', 'Are you sure you want to log out?', [
-      { text: 'Cancel', style: 'cancel' },
-      {
-        text: 'Log Out',
-        style: 'destructive',
-        onPress: () => {
-          logout();
-          router.replace('/(auth)/login');
-        },
-      },
-    ]);
+  const handleRateApp = () => {
+    // TODO: Replace with actual App Store link after publishing
+    Alert.alert('Thank you!', 'Your feedback helps us improve Coin.');
   };
 
-  const initial = user?.name?.charAt(0).toUpperCase() || user?.email?.charAt(0).toUpperCase() || '?';
+  const handleContact = () => {
+    Linking.openURL('mailto:23adamkaminski@gmail.com?subject=Coin App Feedback');
+  };
 
   return (
     <View style={[styles.container, { backgroundColor: theme.background }]}>
-
-      {/* User Card */}
-      <Card style={styles.userCard}>
-        <View style={styles.avatarContainer}>
-          <LinearGradient
-            colors={isPro ? [theme.gold, theme.goldDark] : [theme.roseGold, theme.roseGoldDark]}
-            style={styles.avatar}
-          >
-            <Text style={[styles.avatarText, { color: theme.background }]}>{initial}</Text>
-          </LinearGradient>
-          {isPro && (
-            <View style={[styles.proBadge, { backgroundColor: theme.gold, borderColor: theme.card }]}>
-              <Text style={[styles.proBadgeText, { color: theme.background }]}>PRO</Text>
-            </View>
-          )}
-        </View>
-        <View style={styles.userInfo}>
-          <Text style={[styles.userName, { color: theme.text }]}>{user?.name || 'User'}</Text>
-          <Text style={[styles.userEmail, { color: theme.textSecondary }]}>{user?.email}</Text>
-        </View>
-      </Card>
-
-      {/* Stats Summary */}
+      {/* Stats Card */}
       <Card style={styles.statsCard}>
         <Text style={[styles.statsTitle, { color: theme.text }]}>Your Stats</Text>
         <View style={styles.statsRow}>
@@ -133,15 +98,14 @@ export default function ProfileScreen() {
           />
         )}
         <MenuItem
-          icon="chatbubble-outline"
-          label="Share Feedback"
-          onPress={() => Alert.alert('Thank you!', 'Rate us on the App Store')}
+          icon="star"
+          label="Rate Coin"
+          onPress={handleRateApp}
         />
         <MenuItem
-          icon="log-out-outline"
-          label="Log Out"
-          onPress={handleLogout}
-          destructive
+          icon="mail-outline"
+          label="Contact Us"
+          onPress={handleContact}
         />
       </View>
 
@@ -155,50 +119,6 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingHorizontal: spacing.lg,
     paddingTop: spacing.md,
-  },
-  userCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: spacing.lg,
-  },
-  avatarContainer: {
-    position: 'relative',
-  },
-  avatar: {
-    width: 64,
-    height: 64,
-    borderRadius: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  avatarText: {
-    fontSize: 24,
-    fontWeight: '700',
-  },
-  proBadge: {
-    position: 'absolute',
-    bottom: -4,
-    right: -4,
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 8,
-    borderWidth: 2,
-  },
-  proBadgeText: {
-    fontSize: 8,
-    fontWeight: '700',
-  },
-  userInfo: {
-    marginLeft: spacing.md,
-    flex: 1,
-  },
-  userName: {
-    fontSize: 20,
-    fontWeight: '700',
-  },
-  userEmail: {
-    fontSize: 14,
-    marginTop: 2,
   },
   statsCard: {
     marginBottom: spacing.lg,
@@ -239,7 +159,7 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     gap: spacing.md,
     borderWidth: 1,
-    minHeight: 44, // iOS touch target
+    minHeight: 44,
   },
   menuLabel: {
     flex: 1,

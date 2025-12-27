@@ -3,14 +3,12 @@ import { Slot } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { View, ActivityIndicator, StyleSheet } from 'react-native';
 import { useAppStore } from '@/stores/useAppStore';
-import { useAuthStore } from '@/stores/useAuthStore';
 import { useSubscriptionStore } from '@/stores/useSubscriptionStore';
 import { RevenueCatProvider } from '@/providers/RevenueCatProvider';
 import { theme } from '@/constants/colors';
 
 export default function RootLayout() {
   const { isHydrated: appHydrated } = useAppStore();
-  const { isLoading: authLoading, isHydrated: authHydrated } = useAuthStore();
   const { initializeTrial } = useSubscriptionStore();
 
   // Initialize trial on first launch
@@ -18,9 +16,7 @@ export default function RootLayout() {
     initializeTrial();
   }, [initializeTrial]);
 
-  const isReady = appHydrated && authHydrated && !authLoading;
-
-  if (!isReady) {
+  if (!appHydrated) {
     return (
       <View style={styles.loading}>
         <StatusBar style="light" />

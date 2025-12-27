@@ -41,7 +41,7 @@ export default function GetStartedScreen() {
 
   const handleGetStarted = () => {
     setOnboardingCompleted();
-    router.replace('/(auth)/login');
+    router.replace('/(app)/(tabs)');
   };
 
   const rotation = rotateAnim.interpolate({
@@ -75,13 +75,13 @@ export default function GetStartedScreen() {
 
         <Text style={[styles.title, { color: theme.text }]}>Ready to Decide?</Text>
         <Text style={[styles.subtitle, { color: theme.textSecondary }]}>
-          Create an account to save your history{'\n'}and unlock all features.
+          Let fate decide for you.{'\n'}Simple. Fast. Fun.
         </Text>
 
         <View style={styles.benefits}>
-          <Text style={[styles.benefit, { color: theme.roseGold }]}>+ Cloud sync</Text>
+          <Text style={[styles.benefit, { color: theme.roseGold }]}>+ Beautiful animations</Text>
+          <Text style={[styles.benefit, { color: theme.roseGold }]}>+ Flip history & stats</Text>
           <Text style={[styles.benefit, { color: theme.roseGold }]}>+ Custom coins (PRO)</Text>
-          <Text style={[styles.benefit, { color: theme.roseGold }]}>+ Advanced statistics (PRO)</Text>
         </View>
       </View>
 
