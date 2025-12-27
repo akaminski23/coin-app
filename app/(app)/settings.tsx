@@ -155,17 +155,6 @@ export default function SettingsScreen() {
             </View>
             <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
           </TouchableOpacity>
-
-          <TouchableOpacity
-            style={[styles.settingRow, { backgroundColor: theme.card, borderColor: theme.border }]}
-            onPress={handleResetOnboarding}
-          >
-            <View style={styles.settingInfo}>
-              <Ionicons name="refresh-outline" size={22} color={theme.textSecondary} />
-              <Text style={[styles.settingLabel, { color: theme.text }]}>Show Onboarding Again</Text>
-            </View>
-            <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
-          </TouchableOpacity>
         </View>
 
         {/* About */}
@@ -250,6 +239,17 @@ export default function SettingsScreen() {
               <Text style={[styles.settingValue, { color: isPro ? theme.gold : theme.textSecondary }]}>
                 {isPro ? 'ON' : 'OFF'}
               </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              style={[styles.settingRow, { backgroundColor: theme.card, borderColor: theme.border }]}
+              onPress={handleResetOnboarding}
+            >
+              <View style={styles.settingInfo}>
+                <Ionicons name="refresh-outline" size={22} color={theme.textSecondary} />
+                <Text style={[styles.settingLabel, { color: theme.text }]}>Show Onboarding</Text>
+              </View>
+              <Ionicons name="chevron-forward" size={20} color={theme.textSecondary} />
             </TouchableOpacity>
           </View>
         )}
